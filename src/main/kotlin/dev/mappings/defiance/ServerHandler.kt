@@ -4,6 +4,7 @@ import io.netty.channel.ChannelDuplexHandler
 import io.netty.channel.ChannelHandlerContext
 
 class ServerHandler : ChannelDuplexHandler() {
+
     override fun channelActive(ctx: ChannelHandlerContext) {
         println("client ${ctx.channel().remoteAddress()} connected")
         super.channelActive(ctx)
@@ -21,6 +22,7 @@ class ServerHandler : ChannelDuplexHandler() {
 
     @Suppress("Override_Deprecation")
     override fun exceptionCaught(ctx: ChannelHandlerContext, cause: Throwable) {
+        println("client exception from client ${ctx.channel().remoteAddress()}:")
         cause.printStackTrace()
     }
 }
