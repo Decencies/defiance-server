@@ -2,14 +2,10 @@ package dev.mappings.defiance.messages.codec
 
 import dev.mappings.defiance.debug.debug
 import dev.mappings.defiance.debug.warn
-import dev.mappings.defiance.messages.BitBuf
 import dev.mappings.defiance.messages.MessageType
-import dev.mappings.defiance.messages.NetMsg
-import dev.mappings.defiance.messages.logBuf
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.ByteToMessageDecoder
-import io.netty.handler.codec.MessageToByteEncoder
 
 /**
  * Decodes incoming network messages
@@ -61,7 +57,7 @@ class MessageDecoder : ByteToMessageDecoder() {
                 debug("challenge size: $challengeSize")
                 val challenge = bb.buf.readBytes(challengeSize.toInt())
 
-                logBuf(challenge)
+                //logBuf(challenge)
 
                 // Diffie-Hellman
 
@@ -75,23 +71,5 @@ class MessageDecoder : ByteToMessageDecoder() {
 
         // discard tail
         buf.readerIndex(buf.readerIndex() + buf.readableBytes())
-    }
-}
-
-class MessageEncoder : MessageToByteEncoder<NetMsg>() {
-    /**
-     * Encodes the header
-     * @see "TwnNetBuffer::PackHeader"
-     */
-    override fun encode(ctx: ChannelHandlerContext, msg: NetMsg, out: ByteBuf) {
-        val bb = BitBuf(out)
-
-        bb.buf.retain()
-
-        out.markWriterIndex()
-        msg.write(bb)
-        out.resetWriterIndex()
-
-        println("encoded $msg (${out.readableBytes()} bytes) to ${ctx.channel().remoteAddress()}")
     }
 }

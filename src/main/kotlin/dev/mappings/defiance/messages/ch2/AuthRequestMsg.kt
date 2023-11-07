@@ -1,4 +1,7 @@
-package dev.mappings.defiance.messages
+package dev.mappings.defiance.messages.ch2
+
+import dev.mappings.defiance.messages.NetMsg
+import dev.mappings.defiance.messages.codec.BitBuf
 
 /**
  * @see MessageType.Ch2AuthRequest
