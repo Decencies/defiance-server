@@ -1,6 +1,6 @@
 package dev.mappings.defiance
 
-import dev.mappings.defiance.crypto.Crypto
+import dev.mappings.defiance.debug.debug
 import dev.mappings.defiance.messages.codec.MessageDecoder
 import dev.mappings.defiance.messages.codec.MessageEncoder
 
@@ -9,6 +9,9 @@ import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
 import io.netty.bootstrap.ServerBootstrap
+import java.net.InetSocketAddress
+
+const val DefaultPort = 50000
 
 val ChildHandler = object : ChannelInitializer<SocketChannel>() {
     override fun initChannel(ch: SocketChannel) {
@@ -34,9 +37,8 @@ fun main() {
             .childOption(ChannelOption.SO_KEEPALIVE, true)
             .childOption(ChannelOption.TCP_NODELAY, true)
 
-        Crypto.e()
-
-        val channelFuture = bootstrap.bind(4212).sync()
+        val channelFuture = bootstrap.bind(DefaultPort).sync()
+        debug("server started on port ${(channelFuture.channel().localAddress() as InetSocketAddress).port}")
         channelFuture.channel().closeFuture().sync()
     } finally {
         bossGroup.shutdownGracefully()

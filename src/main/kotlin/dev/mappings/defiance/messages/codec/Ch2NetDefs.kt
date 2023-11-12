@@ -1,8 +1,20 @@
-package dev.mappings.defiance.messages
+package dev.mappings.defiance.messages.codec
 
-// Channel 2 Game Client Build 336811
-object MessageType {
-    // Ch2NetMsgFactory
+import dev.mappings.defiance.messages.twn.TwnEngineCryptChallengeMsg
+import dev.mappings.defiance.messages.twn.TwnEngineCryptResponseMsg
+
+val MsgRegistry = mutableMapOf(
+    MsgTypes.TwnEngineCryptResponse to TwnEngineCryptResponseMsg::class,
+    MsgTypes.TwnEngineCryptChallenge to TwnEngineCryptChallengeMsg::class
+)
+
+/**
+ * Defines the protocol message types.
+ *
+ * Taken from Build 336811 (Xbox-360 30/11/2012)
+ */
+object MsgTypes {
+    // Ch2NetMsgFactory (Ch2NetDefs::MSGTYPES)
     const val Ch2PositionUpdate = 512
     const val Ch2CreateProxy = 513
     const val Ch2DestroyProxy = 514

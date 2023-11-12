@@ -1,12 +1,14 @@
 package dev.mappings.defiance.messages.codec
 
 import io.netty.buffer.ByteBuf
+import io.netty.buffer.Unpooled
 
 class BitBuf(val buf: ByteBuf) {
-    var bitOffset = 0
+    private var bitOffset = 0
+
+    constructor() : this(Unpooled.buffer())
 
     fun readBits(bitCount: Int): UInt {
-        assert(buf.isWritable)
         assert(bitCount <= 32)
 
         when (bitCount) {
@@ -21,13 +23,11 @@ class BitBuf(val buf: ByteBuf) {
         for (bitIndex in 0 until bitCount) {
             val byteAt = buf.getUnsignedByte(index).toUInt()
 
-            value =
-                if (byteAt and (1u shl bitOffset) != 0u) value or (1u shl bitIndex)
-                else value and (1u shl bitIndex).inv()
+            value = value or ((byteAt and (1u shl bitOffset)) shr bitOffset).shl(bitIndex)
 
             if (++bitOffset >= 8) {
-                bitOffset = 0
                 index++
+                bitOffset = 0
             }
         }
 
@@ -44,25 +44,30 @@ class BitBuf(val buf: ByteBuf) {
         assert(buf.isWritable)
         assert(bitCount <= 32)
 
+        var index = -1
+
         when (bitCount) {
             8 -> buf.writeByte(value.toInt())
             16 -> buf.writeShort(value.toInt())
             32 -> buf.writeInt(value.toInt())
+            else -> index = buf.writerIndex()
         }
 
-        var index = buf.readerIndex()
+        if (index < 0) return
 
         for (bitIndex in 0 until bitCount) {
             val byteAt = buf.getUnsignedByte(index).toUInt()
 
             if (value and (1u shl bitIndex) != 0u)
                 buf.setByte(index, (byteAt or (1u shl bitOffset)).toInt())
-            else buf.setByte(index, (byteAt and (1u shl bitOffset)).inv().toInt())
+            else buf.setByte(index, (byteAt and (1u shl bitOffset).inv()).toInt())
 
             if (++bitOffset >= 8) {
-                bitOffset = 0
                 index++
+                bitOffset = 0
             }
         }
+
+        buf.writerIndex(index)
     }
 }

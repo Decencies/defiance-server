@@ -1,12 +1,12 @@
 package dev.mappings.defiance.messages.ch2
 
+import dev.mappings.defiance.messages.codec.MsgTypes
 import dev.mappings.defiance.messages.NetMsg
 import dev.mappings.defiance.messages.codec.BitBuf
 
-/**
- * @see MessageType.Ch2AuthRequest
- */
 class AuthRequestMsg : NetMsg() {
+    override val type: Int get() = MsgTypes.Ch2AuthRequest
+
     override fun read(buf: BitBuf) {
         /**
         val majorVersion = buf.readUnsignedInt()
@@ -21,5 +21,5 @@ class AuthRequestMsg : NetMsg() {
         */
     }
 
-    override fun write(buf: BitBuf) = throw Error()
+    override fun write(buf: BitBuf) = TODO()
 }
