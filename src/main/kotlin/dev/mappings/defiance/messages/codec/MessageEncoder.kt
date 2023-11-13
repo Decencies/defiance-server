@@ -12,13 +12,13 @@ class MessageEncoder : MessageToByteEncoder<NetMsg>() {
         val hdrTypeBits: UInt
         val bitCount: Int
 
-        if (type and -0x800000 != 0 || size and -0x800000 != 0) {
+        if ((type or size) and -0x800000 != 0) {
             hdrTypeBits = 4u
             bitCount = 31
-        } else if (type and -0x8000 != 0 || size and -0x8000 != 0) {
+        } else if ((type or size) and -0x8000 != 0) {
             hdrTypeBits = 2u
             bitCount = 23
-        } else if (type and -0x800 != 0 || size and -0x800 != 0) {
+        } else if ((type or size) and -0x800 != 0) {
             hdrTypeBits = 1u
             bitCount = 15
         } else {

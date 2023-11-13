@@ -17,4 +17,3 @@ object TwnNetDefs {
 
     const val NumReservedEngineMsgTypes = 64
 }
-

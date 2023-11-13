@@ -325,6 +325,7 @@ object Ch2NetDefs {
     const val MsgMtxRedeemCode = 841
     const val MsgMtxClaimItem = 842
     const val MsgMtxResponse = 843
+    // todo: there's more in the pc executable..
 
     const val NumMsgTypes = 844
 }

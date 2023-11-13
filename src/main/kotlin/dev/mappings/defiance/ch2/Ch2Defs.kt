@@ -47,7 +47,7 @@ object AmmoHitOrientation {
     const val Ricochet = 1
     const val Surface = 2
     const val Count = 3
-    const val Last = 2
-    const val Invalid = 0xffffffff
+    const val Last: UInt = 2u
+    const val Invalid: UInt = 0xffffffffu
 }
 

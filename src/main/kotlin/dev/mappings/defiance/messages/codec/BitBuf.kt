@@ -20,7 +20,7 @@ class BitBuf(val buf: ByteBuf) {
         var value = 0u
         var index = buf.readerIndex()
 
-        for (bitIndex in 0 until bitCount) {
+        for (bitIndex in 0..<bitCount) {
             val byteAt = buf.getUnsignedByte(index).toUInt()
 
             value = value or ((byteAt and (1u shl bitOffset)) shr bitOffset).shl(bitIndex)
@@ -36,8 +36,8 @@ class BitBuf(val buf: ByteBuf) {
         return value
     }
 
-    fun verifyBitOffset() {
-        if (bitOffset != 0) error("Bit offset is not 0!")
+    fun verifyBitOffset() = assert(bitOffset == 0) {
+        "Bit offset is not 0!"
     }
 
     fun writeBits(value: UInt, bitCount: Int) {
@@ -55,7 +55,7 @@ class BitBuf(val buf: ByteBuf) {
 
         if (index < 0) return
 
-        for (bitIndex in 0 until bitCount) {
+        for (bitIndex in 0..<bitCount) {
             val byteAt = buf.getUnsignedByte(index).toUInt()
 
             if (value and (1u shl bitIndex) != 0u)
