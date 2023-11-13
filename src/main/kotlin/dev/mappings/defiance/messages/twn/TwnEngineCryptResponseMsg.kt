@@ -1,11 +1,10 @@
 package dev.mappings.defiance.messages.twn
 
-import dev.mappings.defiance.messages.codec.MsgTypes
 import dev.mappings.defiance.messages.NetMsg
 import dev.mappings.defiance.messages.codec.BitBuf
 
 class TwnEngineCryptResponseMsg : NetMsg() {
-    override val type: Int get() = MsgTypes.TwnEngineCryptResponse
+    override val type: Int get() = TwnNetDefs.TwnEngineCryptResponse
 
     override fun read(buf: BitBuf) = TODO()
 
