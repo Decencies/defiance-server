@@ -22,6 +22,7 @@ class ServerHandler : ChannelDuplexHandler() {
         super.channelRead(ctx, msg); debug("received ${msg::class.simpleName} from client ${ctx.channel().addr}")
         when (msg) {
             is TwnEngineCryptChallengeMsg -> ProcessCryptChallenge(msg, ctx)
+            else -> warn("No handler registered for message type ${msg::class.simpleName}")
         }
     }
 
