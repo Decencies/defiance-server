@@ -1,4 +1,4 @@
-package dev.mappings.defiance.debug
+package dev.mappings.defiance.util
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

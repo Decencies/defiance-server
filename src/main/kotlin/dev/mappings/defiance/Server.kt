@@ -1,6 +1,6 @@
 package dev.mappings.defiance
 
-import dev.mappings.defiance.debug.debug
+import dev.mappings.defiance.util.debug
 import dev.mappings.defiance.messages.codec.MessageDecoder
 import dev.mappings.defiance.messages.codec.MessageEncoder
 

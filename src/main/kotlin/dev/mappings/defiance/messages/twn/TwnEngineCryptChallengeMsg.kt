@@ -1,17 +1,15 @@
 package dev.mappings.defiance.messages.twn
 
-import dev.mappings.defiance.debug.debug
-import dev.mappings.defiance.messages.codec.MsgTypes
+import dev.mappings.defiance.util.debug
 import dev.mappings.defiance.messages.NetMsg
 import dev.mappings.defiance.messages.codec.BitBuf
 import dev.mappings.defiance.messages.codec.addr
-import dev.mappings.defiance.messages.codec.hexdump
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.Unpooled
 import io.netty.channel.ChannelHandlerContext
 
 class TwnEngineCryptChallengeMsg : NetMsg() {
-    override val type: Int get() = MsgTypes.TwnEngineCryptChallenge
+    override val type: Int get() = TwnNetDefs.TwnEngineCryptChallenge
 
     var challengeSize: UInt = 0u; private set
 
@@ -29,7 +27,7 @@ class TwnEngineCryptChallengeMsg : NetMsg() {
     override fun write(buf: BitBuf) = TODO()
 }
 
-// TwnNetConnection::ProcessCryptChallenge (impl on pc is at .text:00827F30)
+// TwnNetConnection::ProcessCryptChallenge (.text:00827F30)
 fun ProcessCryptChallenge(msg: TwnEngineCryptChallengeMsg, ctx: ChannelHandlerContext) {
     debug("received crypt challenge from ${ctx.channel().addr}!")
     debug("challenge size: ${msg.challengeSize}")

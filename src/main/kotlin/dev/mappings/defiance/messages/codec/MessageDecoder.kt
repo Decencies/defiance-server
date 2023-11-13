@@ -1,8 +1,9 @@
 package dev.mappings.defiance.messages.codec
 
-import dev.mappings.defiance.debug.debug
-import dev.mappings.defiance.debug.warn
+import dev.mappings.defiance.util.debug
+import dev.mappings.defiance.util.warn
 import dev.mappings.defiance.messages.NetMsg
+import dev.mappings.defiance.messages.NetMsgs
 
 import io.netty.buffer.ByteBuf
 import io.netty.channel.ChannelHandlerContext
@@ -26,8 +27,6 @@ class MessageDecoder : ByteToMessageDecoder() {
 
         debug("received ${buf.readableBytes()} bytes from ${ctx.channel().addr}")
 
-       // bb.buf.hexdump()
-
         if (buf.readableBytes() <= 0) return
 
         val bitCount = when (bb.readBits(2)) {
@@ -50,7 +49,7 @@ class MessageDecoder : ByteToMessageDecoder() {
 
         bb.verifyBitOffset()
 
-        val cls = MsgRegistry[type.toInt()] ?: return buf.discardWithWarning("received unhandled message $type (size: $size)")
+        val cls = NetMsgs[type.toInt()] ?: return buf.discardWithWarning("received unhandled message $type (size: $size)")
         val msg = cls.java.constructors[0].newInstance() as NetMsg
 
         assert(msg.type == type.toInt()) {

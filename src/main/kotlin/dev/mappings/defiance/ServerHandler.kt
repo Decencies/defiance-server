@@ -1,7 +1,7 @@
 package dev.mappings.defiance
 
-import dev.mappings.defiance.debug.debug
-import dev.mappings.defiance.debug.warn
+import dev.mappings.defiance.util.debug
+import dev.mappings.defiance.util.warn
 import dev.mappings.defiance.messages.codec.addr
 import dev.mappings.defiance.messages.twn.ProcessCryptChallenge
 import dev.mappings.defiance.messages.twn.TwnEngineCryptChallengeMsg

@@ -1,10 +1,9 @@
 package dev.mappings.defiance.messages.codec
 
-import dev.mappings.defiance.debug.debug
+import dev.mappings.defiance.util.debug
 import dev.mappings.defiance.messages.NetMsg
 
 import io.netty.buffer.ByteBuf
-import io.netty.buffer.Unpooled
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.MessageToByteEncoder
 
