@@ -13,4 +13,4 @@ To load the XeX in IDA, please use the [idaxex](https://github.com/emoose/idaxex
 
 #### Mapping Messages
 
-`Ch2ClientGameMgr` contains the message handling definitions, it would be helpful if we left a small comment above each message type declared in `Ch2NetDefs` with the corresponding behaviour once the message is handled, along with their fields, in the order they are serialised.
+`Ch2ClientGameMgr` contains the message handling definitions, it would be helpful if we left a small comment above each message type declared in [Ch2NetDefs](https://github.com/Decencies/defiance-server/blob/main/src/main/kotlin/dev/mappings/defiance/messages/ch2/Ch2NetDefs.kt) with the corresponding behaviour once the message is handled, along with their fields, in the order they are serialised.
