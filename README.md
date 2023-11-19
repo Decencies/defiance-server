@@ -11,6 +11,8 @@ If you would like to contribute to the development of the server, you can downlo
 
 To load the XeX in IDA, please use the [idaxex](https://github.com/emoose/idaxex/releases/tag/0.30) plugin, and change the `PDB_PROVIDER` option in `pdb.cfg` to MSDIA, as IDA’s default provider seems to be incomplete and has limited support when loading the PDB. When prompted with the base address, use `0x82000000` as per idaxex’s default recommendation, and also uncheck the types only option, if you wish to recover function parameter types (even though DIA supports loading locals, IDA doesn’t seem to care).
 
+Note: It's probably best to close all the ui windows in IDA and, restore the default layout later from the "Windows" toolbar option, as it tends to speed up the process.
+
 #### Mapping Messages
 
 `Ch2ClientGameMgr` contains the message handling definitions, it would be helpful if we left a small comment above each message type declared in [Ch2NetDefs](https://github.com/Decencies/defiance-server/blob/main/src/main/kotlin/dev/mappings/defiance/messages/ch2/Ch2NetDefs.kt) with the corresponding behaviour once the message is handled, along with their fields, in the order they are serialised.
